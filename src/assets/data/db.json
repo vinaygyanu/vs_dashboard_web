@@ -1,0 +1,198 @@
+{
+  "summaryCards": {
+    "totalUsers": 14759,
+    "activeUsers": 8426,
+    "loginsToday": 3128,
+    "anomalies": 17,
+    "lastUpdated": "2025-08-04T10:30:00Z"
+  },
+  "usageMetrics": {
+    "daily": [
+      { "date": "2025-07-29", "users": 7845, "sessions": 12456, "duration": 345 },
+      { "date": "2025-07-30", "users": 8102, "sessions": 13012, "duration": 362 },
+      { "date": "2025-07-31", "users": 7920, "sessions": 12780, "duration": 351 },
+      { "date": "2025-08-01", "users": 8350, "sessions": 14102, "duration": 375 },
+      { "date": "2025-08-02", "users": 7102, "sessions": 10524, "duration": 298 },
+      { "date": "2025-08-03", "users": 6845, "sessions": 9876, "duration": 287 },
+      { "date": "2025-08-04", "users": 8426, "sessions": 15240, "duration": 412 }
+    ],
+    "monthly": [
+      { "month": "Jan", "users": 187450, "sessions": 342100, "duration": 9876 },
+      { "month": "Feb", "users": 198320, "sessions": 356700, "duration": 10234 },
+      { "month": "Mar", "users": 210450, "sessions": 375600, "duration": 11420 },
+      { "month": "Apr", "users": 215780, "sessions": 382400, "duration": 12105 },
+      { "month": "May", "users": 220150, "sessions": 390800, "duration": 12980 },
+      { "month": "Jun", "users": 226450, "sessions": 402300, "duration": 13450 },
+      { "month": "Jul", "users": 231200, "sessions": 415600, "duration": 14230 }
+    ]
+  },
+  "userActivity": [
+    {
+      "id": 1,
+      "username": "alex.morgan",
+      "email": "alex.morgan@example.com",
+      "lastLogin": "2025-08-04T09:45:23Z",
+      "status": "active",
+      "sessionDuration": "2h 15m",
+      "location": "New York, US",
+      "device": "Desktop - Chrome",
+      "actions": 45
+    },
+    {
+      "id": 2,
+      "username": "sarah.johnson",
+      "email": "sarah.j@example.com",
+      "lastLogin": "2025-08-04T08:30:12Z",
+      "status": "active",
+      "sessionDuration": "3h 22m",
+      "location": "London, UK",
+      "device": "Mobile - Safari",
+      "actions": 38
+    },
+    {
+      "id": 3,
+      "username": "michael.zhang",
+      "email": "m.zhang@example.com",
+      "lastLogin": "2025-08-04T10:15:07Z",
+      "status": "active",
+      "sessionDuration": "1h 45m",
+      "location": "Singapore",
+      "device": "Tablet - Chrome",
+      "actions": 27
+    },
+    {
+      "id": 4,
+      "username": "priya.patel",
+      "email": "p.patel@example.com",
+      "lastLogin": "2025-08-04T07:50:34Z",
+      "status": "active",
+      "sessionDuration": "4h 05m",
+      "location": "Mumbai, IN",
+      "device": "Desktop - Firefox",
+      "actions": 62
+    },
+    {
+      "id": 5,
+      "username": "james.wilson",
+      "email": "j.wilson@example.com",
+      "lastLogin": "2025-08-03T22:10:56Z",
+      "status": "inactive",
+      "sessionDuration": "0h 35m",
+      "location": "Sydney, AU",
+      "device": "Mobile - Chrome",
+      "actions": 8
+    },
+    {
+      "id": 6,
+      "username": "emma.garcia",
+      "email": "e.garcia@example.com",
+      "lastLogin": "2025-08-04T05:25:18Z",
+      "status": "active",
+      "sessionDuration": "5h 40m",
+      "location": "Madrid, ES",
+      "device": "Desktop - Edge",
+      "actions": 73
+    },
+    {
+      "id": 7,
+      "username": "david.kim",
+      "email": "d.kim@example.com",
+      "lastLogin": "2025-08-04T11:05:42Z",
+      "status": "active",
+      "sessionDuration": "0h 55m",
+      "location": "Seoul, KR",
+      "device": "Mobile - Samsung Browser",
+      "actions": 16
+    },
+    {
+      "id": 8,
+      "username": "sophia.müller",
+      "email": "s.mueller@example.com",
+      "lastLogin": "2025-08-03T19:30:27Z",
+      "status": "inactive",
+      "sessionDuration": "1h 20m",
+      "location": "Berlin, DE",
+      "device": "Desktop - Chrome",
+      "actions": 24
+    },
+    {
+      "id": 9,
+      "username": "lucas.silva",
+      "email": "l.silva@example.com",
+      "lastLogin": "2025-08-04T08:15:39Z",
+      "status": "active",
+      "sessionDuration": "2h 50m",
+      "location": "São Paulo, BR",
+      "device": "Mobile - Chrome",
+      "actions": 41
+    },
+    {
+      "id": 10,
+      "username": "aisha.abdullah",
+      "email": "a.abdullah@example.com",
+      "lastLogin": "2025-08-04T06:40:11Z",
+      "status": "active",
+      "sessionDuration": "3h 15m",
+      "location": "Dubai, AE",
+      "device": "Desktop - Safari",
+      "actions": 52
+    }
+  ],
+  "anomalies": [
+    {
+      "id": 1,
+      "username": "james.wilson",
+      "type": "Multiple failed login attempts",
+      "timestamp": "2025-08-04T02:15:39Z",
+      "severity": "high",
+      "resolved": false
+    },
+    {
+      "id": 2,
+      "username": "sarah.johnson",
+      "type": "Unusual location access",
+      "timestamp": "2025-08-03T22:40:12Z",
+      "severity": "medium",
+      "resolved": true
+    },
+    {
+      "id": 3,
+      "username": "alex.morgan",
+      "type": "Excessive data download",
+      "timestamp": "2025-08-04T08:30:45Z",
+      "severity": "high",
+      "resolved": false
+    },
+    {
+      "id": 4,
+      "username": "priya.patel",
+      "type": "Unusual activity pattern",
+      "timestamp": "2025-08-04T05:12:23Z",
+      "severity": "low",
+      "resolved": false
+    },
+    {
+      "id": 5,
+      "username": "david.kim",
+      "type": "Unauthorized access attempt",
+      "timestamp": "2025-08-03T21:05:17Z",
+      "severity": "high",
+      "resolved": true
+    }
+  ],
+  "topPages": [
+    { "page": "/dashboard", "visits": 12568, "uniqueUsers": 8245, "avgTimeSpent": 245 },
+    { "page": "/profile", "visits": 9854, "uniqueUsers": 7102, "avgTimeSpent": 180 },
+    { "page": "/analytics", "visits": 8321, "uniqueUsers": 4520, "avgTimeSpent": 320 },
+    { "page": "/settings", "visits": 6548, "uniqueUsers": 3950, "avgTimeSpent": 150 },
+    { "page": "/reports", "visits": 5426, "uniqueUsers": 2840, "avgTimeSpent": 210 }
+  ],
+  "systemStatus": {
+    "serverUptime": "99.98%",
+    "averageResponseTime": "125ms",
+    "activeConnections": 1245,
+    "cpuUsage": 42,
+    "memoryUsage": 58,
+    "lastIncident": "2025-07-29T14:25:00Z"
+  }
+}

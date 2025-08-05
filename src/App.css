@@ -1,0 +1,206 @@
+/* Minimalistic Theme for the Dashboard */
+
+/* Subtle animations - for classy effects */
+@keyframes subtle-fade {
+  0% {
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.95;
+  }
+}
+
+/* Header icon subtle animation */
+@keyframes subtle-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Background animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Main background - elegant gradient with subtle animation */
+.bg-gradient-to-br {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9, #f8f9fa, #f0f4f8);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+header svg {
+  animation: subtle-pulse 3s infinite ease-in-out;
+}
+
+/* Classy card styling with glassmorphism effect */
+.bg-white {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.85));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.03),
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-white::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    rgba(59, 130, 246, 0.7),
+    rgba(16, 185, 129, 0.7),
+    rgba(139, 92, 246, 0.7),
+    rgba(236, 72, 153, 0.7)
+  );
+  background-size: 300% 300%;
+  animation: gradient-shift 6s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bg-white:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 20px -5px rgba(0, 0, 0, 0.1),
+    0 4px 12px -2px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.bg-white:hover::after {
+  opacity: 1;
+}
+
+/* Typography - clean and minimal */
+h1, h2, h3 {
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+/* Footer styling - more elegant with gradient */
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, #171717, #262626, #171717);
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%);
+}
+
+/* Minimalist borders */
+.border-b {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+/* Card-specific backgrounds - more vibrant and classy */
+.card-dashboard {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9)),
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.15), transparent 70%);
+  background-blend-mode: overlay;
+  border-left: 3px solid rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-analytics {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9)),
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.15), transparent 70%);
+  background-blend-mode: overlay;
+  border-left: 3px solid rgba(16, 185, 129, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-activity {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9)),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.15), transparent 70%);
+  background-blend-mode: overlay;
+  border-left: 3px solid rgba(139, 92, 246, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.card-feed {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9)),
+    radial-gradient(circle at bottom left, rgba(244, 63, 94, 0.15), transparent 70%);
+  background-blend-mode: overlay;
+  border-left: 3px solid rgba(244, 63, 94, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Keeping legacy animations */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+  transition: all 0.3s ease;
+}
+
+.read-the-docs {
+  color: #888;
+}

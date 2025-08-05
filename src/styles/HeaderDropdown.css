@@ -1,0 +1,127 @@
+/* Header dropdown menu styles */
+.user-dropdown {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  width: 280px;
+  animation: dropdown-appear 0.2s ease-out;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@keyframes dropdown-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-header {
+  background: linear-gradient(to right, #4d84e2, #5a91ea);
+  padding: 16px;
+  position: relative;
+  color: white;
+}
+
+.dropdown-header-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.dropdown-avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: white;
+  color: #4d84e2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid white;
+}
+
+.dropdown-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.dropdown-email {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.dropdown-role {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dropdown-menu {
+  padding: 8px;
+}
+
+.dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: background-color 0.15s;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-menu-item:hover {
+  background-color: #f5f8ff;
+}
+
+.dropdown-menu-item.danger {
+  color: #e53e3e;
+}
+
+.dropdown-menu-item.danger:hover {
+  background-color: #fff5f5;
+}
+
+.dropdown-menu-item svg {
+  margin-right: 12px;
+  width: 18px;
+  height: 18px;
+}
+
+.dropdown-menu-item-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dropdown-menu-divider {
+  height: 1px;
+  background-color: #edf2f7;
+  margin: 8px 0;
+}
+
+.dropdown-footer {
+  padding: 8px 12px;
+  background-color: #f9fafc;
+  border-top: 1px solid #edf2f7;
+  color: #718096;
+  font-size: 12px;
+  text-align: center;
+}

@@ -1,0 +1,320 @@
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-overlay-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.animate-modal-appear {
+  animation: modal-appear 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animate-modal-overlay {
+  animation: modal-overlay-appear 0.2s ease-out;
+}
+
+/* Close button styles for the profile modal */
+.modal-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.modal-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+  animation: pulse 1.5s infinite;
+}
+
+.modal-close-btn:hover::before {
+  transform: scale(2);
+  opacity: 1;
+}
+
+.modal-close-btn:active {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: rotate(90deg) scale(0.95);
+}
+
+.modal-close-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+  stroke-width: 3.5px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+.modal-header {
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.15));
+  pointer-events: none;
+}
+
+.modal-header h3 {
+  color: white;
+  font-weight: 600;
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.modal-header svg {
+  filter: drop-shadow(0px 2px 3px rgba(0, 0, 0, 0.4));
+  position: relative;
+  z-index: 1;
+}
+
+.user-profile {
+  background-color: white;
+}
+
+.user-profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #4d84e2;
+  background-image: linear-gradient(135deg, #4d84e2, #5d8fe8);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin-right: 24px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(77, 132, 226, 0.3);
+  border: 3px solid #ffffff;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-info h2 {
+  font-size: 24px;
+  margin: 0 0 5px 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.user-role {
+  color: #fff;
+  background-color: #4d84e2;
+  border-radius: 12px;
+  padding: 3px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.user-email {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.user-email::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E");
+  background-size: contain;
+  margin-right: 6px;
+}
+
+.user-details {
+  border-top: 1px solid #eaeaea;
+  padding-top: 20px;
+  margin-top: 20px;
+  background-color: #f9fafc;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed #eaeaea;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-label {
+  width: 100px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: #1e293b;
+  flex: 1;
+  font-weight: 500;
+}
+
+.detail-value.link {
+  color: #4d84e2;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: all 0.2s;
+}
+
+.detail-value.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #4d84e2;
+  transition: width 0.2s;
+}
+
+.detail-value.link:hover {
+  color: #3a70d0;
+}
+
+.detail-value.link:hover::after {
+  width: 100%;
+}
+
+.user-profile-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border: 3px solid rgba(77, 132, 226, 0.1);
+  border-radius: 50%;
+  border-top-color: #4d84e2;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.user-profile-loading p {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.user-profile-error {
+  text-align: center;
+  padding: 30px;
+  color: #e11d48;
+  background-color: #fff1f2;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-profile-error p {
+  font-weight: 500;
+}
+
+.user-profile-error button {
+  background-color: #e11d48;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-top: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.user-profile-error button:hover {
+  background-color: #be123c;
+}
