@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ActivityDetailModal.css';
 
 const ActivityDetailModal = ({ activity, onClose }) => {
+  // Add escape key listener to close modal
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape' && activity) {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscKey);
+    
+    // Prevent body scroll when modal is open
+    if (activity) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleEscKey);
+      document.body.style.overflow = 'auto';
+    };
+  }, [activity, onClose]);
+
   if (!activity) {
     return null;
   }
@@ -28,28 +49,33 @@ const ActivityDetailModal = ({ activity, onClose }) => {
         </div>
         <div className="modal-body">
           <div className="detail-item">
-            <strong>Username</strong> {activity.username}
+            <strong>Username</strong> {activity.username || 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Email</strong> {activity.email}
+            <strong>Email</strong> {activity.email || 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Last Login</strong> {formatDate(activity.lastLogin)}
+            <strong>Last Login</strong> {activity.lastLogin ? formatDate(activity.lastLogin) : 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Status</strong> <span className={`status-badge status-${activity.status.toLowerCase()}`}>{activity.status}</span>
+            <strong>Status</strong> 
+            {activity.status ? (
+              <span className={`status-badge status-${activity.status.toLowerCase()}`}>
+                {activity.status}
+              </span>
+            ) : 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Session</strong> {activity.sessionDuration}
+            <strong>Session</strong> {activity.sessionDuration || 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Location</strong> {activity.location}
+            <strong>Location</strong> {activity.location || 'Unknown'}
           </div>
           <div className="detail-item">
-            <strong>Device</strong> {activity.device}
+            <strong>Device</strong> {activity.device || 'N/A'}
           </div>
           <div className="detail-item">
-            <strong>Actions</strong> {activity.actions}
+            <strong>Actions</strong> {typeof activity.actions === 'number' ? activity.actions : 'N/A'}
           </div>
         </div>
       </div>

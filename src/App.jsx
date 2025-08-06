@@ -11,6 +11,7 @@ import DataService from './services/DataService';
 import AuthService from './services/AuthService';
 import './App.css'
 import './styles/HeaderDropdown.css'
+import UserList from './components/UserList';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -295,6 +296,12 @@ function Dashboard() {
               {/* Real-Time Activity Feed */}
               <div className="bg-white rounded-minimal shadow-minimal p-6 card-feed">
                 <RealTimeActivityFeed />
+              </div>
+
+              {/* User List - New Section */}
+              <div className="bg-white rounded-minimal shadow-minimal p-6 card-user-list">
+                <h2 className="text-xl text-neutral-700 mb-6 border-b pb-3">User List</h2>
+                <UserList />
               </div>
             </>
           )}
