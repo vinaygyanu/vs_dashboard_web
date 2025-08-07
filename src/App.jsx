@@ -12,6 +12,7 @@ import AuthService from './services/AuthService';
 import './App.css'
 import './styles/HeaderDropdown.css'
 import UserList from './components/UserList';
+import Signup from './components/Signup';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -25,11 +26,12 @@ function Dashboard() {
     anomalies: null,
     systemStatus: null,
   });
+  const [activeTab, setActiveTab] = useState('overview');
   
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
   
   // Get current user data when component mounts
@@ -213,6 +215,25 @@ function Dashboard() {
       {/* Main Content - Enhanced with classy background */}
       <main className="flex-grow bg-gradient-to-br">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Tab Navigation */}
+          <div className="mb-8 flex gap-4 border-b pb-2">
+            <button className={`tab-btn${activeTab==='overview'?' active':''}`} onClick={()=>setActiveTab('overview')} style={activeTab==='overview'?{background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',fontWeight:700,boxShadow:'0 2px 8px #6366f122',borderRadius:8}:{background:'none',color:'#6366f1',fontWeight:600,borderRadius:8}}>
+              Overview
+            </button>
+            <button className={`tab-btn${activeTab==='analytics'?' active':''}`} onClick={()=>setActiveTab('analytics')} style={activeTab==='analytics'?{background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',fontWeight:700,boxShadow:'0 2px 8px #6366f122',borderRadius:8}:{background:'none',color:'#6366f1',fontWeight:600,borderRadius:8}}>
+              Analytics
+            </button>
+            <button className={`tab-btn${activeTab==='activity'?' active':''}`} onClick={()=>setActiveTab('activity')} style={activeTab==='activity'?{background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',fontWeight:700,boxShadow:'0 2px 8px #6366f122',borderRadius:8}:{background:'none',color:'#6366f1',fontWeight:600,borderRadius:8}}>
+              Activity
+            </button>
+            <button className={`tab-btn${activeTab==='feed'?' active':''}`} onClick={()=>setActiveTab('feed')} style={activeTab==='feed'?{background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',fontWeight:700,boxShadow:'0 2px 8px #6366f122',borderRadius:8}:{background:'none',color:'#6366f1',fontWeight:600,borderRadius:8}}>
+              Feed
+            </button>
+            <button className={`tab-btn${activeTab==='users'?' active':''}`} onClick={()=>setActiveTab('users')} style={activeTab==='users'?{background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',fontWeight:700,boxShadow:'0 2px 8px #6366f122',borderRadius:8}:{background:'none',color:'#6366f1',fontWeight:600,borderRadius:8}}>
+              User List
+            </button>
+          </div>
+          {/* Tab Content */}
           {loading ? (
             <div className="flex flex-col items-center justify-center h-64">
               <div className="w-16 h-16 relative">
@@ -223,7 +244,6 @@ function Dashboard() {
             </div>
           ) : (
             <>
-              {/* User Profile Modal */}
               {showUserProfile && (
                 <div 
                   className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-modal-overlay"
@@ -263,46 +283,51 @@ function Dashboard() {
                   </div>
                 </div>
               )}
-              <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-dashboard">
-                <div className="flex justify-between items-center mb-6 border-b pb-3">
-                  <h2 className="text-xl text-neutral-700">Dashboard Overview</h2>
-                  <span className="text-xs text-neutral-400">
-                    Last updated: {new Date(dashboardData.summaryData?.lastUpdated).toLocaleTimeString()}
-                  </span>
-                </div>
-                <SummaryCards data={dashboardData.summaryData} />
-              </div>
-              
-              <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-analytics">
-                <h2 className="text-xl text-neutral-700 mb-6 border-b pb-3">Usage Analytics</h2>
-                <UsageChart data={dashboardData.usageData} />
-              </div>
-              
-              <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-activity">
-                <div className="flex justify-between items-center mb-6 border-b pb-3">
-                  <h2 className="text-xl text-neutral-700">User Activity</h2>
-                  <div className="flex space-x-2">
-                    {dashboardData.anomalies && dashboardData.anomalies.length > 0 && (
-                      <span className="bg-error-light text-error-dark text-xs font-medium px-2 py-0.5 rounded-full flex items-center">
-                        <span className="h-1.5 w-1.5 bg-error rounded-full mr-1"></span>
-                        {dashboardData.anomalies.length} Anomalies
-                      </span>
-                    )}
+              {activeTab === 'overview' && (
+                <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-dashboard">
+                  <div className="flex justify-between items-center mb-6 border-b pb-3">
+                    <h2 className="text-xl text-neutral-700">Dashboard Overview</h2>
+                    <span className="text-xs text-neutral-400">
+                      Last updated: {new Date(dashboardData.summaryData?.lastUpdated).toLocaleTimeString()}
+                    </span>
                   </div>
+                  <SummaryCards data={dashboardData.summaryData} />
                 </div>
-                <UserActivityTable data={dashboardData.userActivity} />
-              </div>
-
-              {/* Real-Time Activity Feed */}
-              <div className="bg-white rounded-minimal shadow-minimal p-6 card-feed">
-                <RealTimeActivityFeed />
-              </div>
-
-              {/* User List - New Section */}
-              <div className="bg-white rounded-minimal shadow-minimal p-6 card-user-list">
-                <h2 className="text-xl text-neutral-700 mb-6 border-b pb-3">User List</h2>
-                <UserList />
-              </div>
+              )}
+              {activeTab === 'analytics' && (
+                <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-analytics">
+                  <h2 className="text-xl text-neutral-700 mb-6 border-b pb-3">Usage Analytics</h2>
+                  <UsageChart data={dashboardData.usageData} />
+                </div>
+              )}
+              {activeTab === 'activity' && (
+                <div className="bg-white rounded-minimal shadow-minimal p-6 mb-6 card-activity">
+                  <div className="flex justify-between items-center mb-6 border-b pb-3">
+                    <h2 className="text-xl text-neutral-700">User Activity</h2>
+                    <div className="flex space-x-2">
+                      {dashboardData.anomalies && dashboardData.anomalies.length > 0 && (
+                        <span className="bg-error-light text-error-dark text-xs font-medium px-2 py-0.5 rounded-full flex items-center">
+                          <span className="h-1.5 w-1.5 bg-error rounded-full mr-1"></span>
+                          {dashboardData.anomalies.length} Anomalies
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <UserActivityTable data={dashboardData.userActivity} />
+                </div>
+              )}
+              {activeTab === 'feed' && (
+                <div className="bg-white rounded-minimal shadow-minimal p-6 card-feed">
+                  <RealTimeActivityFeed />
+                </div>
+              )}
+              {activeTab === 'users' && (
+                <div className="bg-white rounded-minimal shadow-minimal p-6 card-user-list">
+                  <h2 className="text-xl text-neutral-700 mb-6 border-b pb-3">User List</h2>
+                  <UserList />
+                </div>
+              )}
+            {/* End tab content */}
             </>
           )}
         </div>
@@ -331,6 +356,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <ProtectedRoute><Dashboard /></ProtectedRoute>
+  },
+  {
+    path: "/signup",
+    element: <Signup />
   },
   {
     path: "*",

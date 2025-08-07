@@ -48,6 +48,16 @@ const Login = () => {
           <p>Enter your credentials to access the dashboard</p>
         </div>
         
+        {/* Signup link */}
+        <div style={{textAlign:'center',marginBottom:16}}>
+          <span style={{color:'#6366f1'}}>Don't have an account?</span>
+          <button
+            type="button"
+            style={{marginLeft:8,padding:'6px 16px',background:'linear-gradient(90deg,#6366f1,#f472b6)',color:'#fff',border:'none',borderRadius:4,fontWeight:600,cursor:'pointer',boxShadow:'0 2px 8px #6366f122'}}
+            onClick={()=>navigate('/signup')}
+          >Sign Up</button>
+        </div>
+        
         {error && <div className="error-message">{error}</div>}
         
         <form onSubmit={handleSubmit} className="login-form">

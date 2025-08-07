@@ -116,6 +116,26 @@ const actionGroupStyle = {
   gap: 12,
   marginLeft: 'auto',
 };
+const loaderStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: '1.5rem 0',
+};
+const spinnerStyle = {
+  width: 32,
+  height: 32,
+  border: '4px solid #60a5fa',
+  borderTop: '4px solid #34d399',
+  borderRadius: '50%',
+  animation: 'spin 1s linear infinite',
+};
+
+// Add keyframes for spinner animation
+const styleSheet = document.styleSheets[0];
+if (styleSheet && !Array.from(styleSheet.cssRules).find(r => r.name === 'spin')) {
+  styleSheet.insertRule(`@keyframes spin { 100% { transform: rotate(360deg); } }`, styleSheet.cssRules.length);
+}
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -125,6 +145,7 @@ const UserList = () => {
   const [editUserId, setEditUserId] = useState(null);
   const [editUser, setEditUser] = useState({ username: '', email: '', status: 'active' });
   const [hovered, setHovered] = useState(null);
+  const [adding, setAdding] = useState(false);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -144,12 +165,15 @@ const UserList = () => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    setAdding(true);
     try {
       await UserService.create(newUser);
       setNewUser({ username: '', email: '', status: 'active' });
       fetchUsers();
     } catch (err) {
       setError('Failed to create user');
+    } finally {
+      setAdding(false);
     }
   };
 
@@ -222,7 +246,13 @@ const UserList = () => {
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
-        <button type="submit" style={buttonStyle}>Add User</button>
+        <button type="submit" style={buttonStyle} disabled={adding}>Add User</button>
+        {adding && (
+          <span style={loaderStyle}>
+            <span style={spinnerStyle}></span>
+            <span style={{ marginLeft: 12, color: '#2563eb', fontWeight: 600 }}>Adding...</span>
+          </span>
+        )}
       </form>
       <ul style={listStyle}>
         {users.map(user => (
