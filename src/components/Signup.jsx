@@ -20,12 +20,11 @@ const Signup = () => {
     setError('');
     setLoading(true);
     try {
-      // Replace with your actual signup API call
-      const success = await AuthService.signup(username, email, password);
-      if (success) {
+      const result = await AuthService.signup(username, email, password);
+      if (result.success) {
         navigate('/login');
       } else {
-        setError('Signup failed. Try a different username/email.');
+        setError(result.error);
       }
     } catch (err) {
       setError('An error occurred during signup. Please try again.');

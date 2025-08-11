@@ -3,8 +3,9 @@
  * Currently uses local db.json file but can be replaced with actual API calls
  */
 
-// Import the JSON data directly
-import dashboardData from '../assets/data/db.json';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3001/api';
 
 /**
  * Service to retrieve dashboard data
@@ -15,25 +16,31 @@ export const DataService = {
    * Get all dashboard data
    * @returns {Promise} Promise that resolves to the entire dashboard data
    */
-  getAllData: () => {
-    return new Promise((resolve) => {
-      // Simulate network delay for realistic behavior
-      setTimeout(() => {
-        resolve(dashboardData);
-      }, 300);
-    });
+  getAllData: async () => {
+    // Optionally, fetch all relevant data in parallel
+    const [summary, usage, activity, anomalies, systemStatus] = await Promise.all([
+      axios.get(`${API_URL}/summary`),
+      axios.get(`${API_URL}/usage`),
+      axios.get(`${API_URL}/user-activity`),
+      axios.get(`${API_URL}/anomalies`),
+      axios.get(`${API_URL}/system-status`)
+    ]);
+    return {
+      summary: summary.data,
+      usage: usage.data,
+      activity: activity.data,
+      anomalies: anomalies.data,
+      systemStatus: systemStatus.data
+    };
   },
 
   /**
    * Get summary card data
    * @returns {Promise} Promise that resolves to summary card data
    */
-  getSummaryData: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.summaryCards);
-      }, 300);
-    });
+  getSummaryData: async () => {
+    const res = await axios.get(`${API_URL}/summary`);
+    return res.data;
   },
 
   /**
@@ -41,60 +48,36 @@ export const DataService = {
    * @param {string} timeframe - 'daily' or 'monthly'
    * @returns {Promise} Promise that resolves to usage metrics data
    */
-  getUsageData: (timeframe = 'daily') => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.usageMetrics[timeframe]);
-      }, 300);
-    });
+  getUsageData: async (timeframe = 'daily') => {
+    const res = await axios.get(`${API_URL}/usage?timeframe=${timeframe}`);
+    return res.data;
   },
 
   /**
    * Get user activity data
    * @returns {Promise} Promise that resolves to user activity data
    */
-  getUserActivity: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.userActivity);
-      }, 300);
-    });
+  getUserActivity: async () => {
+    const res = await axios.get(`${API_URL}/user-activity`);
+    return res.data;
   },
 
   /**
    * Get anomalies data
    * @returns {Promise} Promise that resolves to anomalies data
    */
-  getAnomalies: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.anomalies);
-      }, 300);
-    });
-  },
-
-  /**
-   * Get top pages data
-   * @returns {Promise} Promise that resolves to top pages data
-   */
-  getTopPages: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.topPages);
-      }, 300);
-    });
+  getAnomalies: async () => {
+    const res = await axios.get(`${API_URL}/anomalies`);
+    return res.data;
   },
 
   /**
    * Get system status data
    * @returns {Promise} Promise that resolves to system status data
    */
-  getSystemStatus: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(dashboardData.systemStatus);
-      }, 300);
-    });
+  getSystemStatus: async () => {
+    const res = await axios.get(`${API_URL}/system-status`);
+    return res.data;
   }
 };
 

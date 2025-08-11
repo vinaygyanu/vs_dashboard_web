@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 // API base URL - replace with your actual API URL in production
-const API_URL = 'https://jsonplaceholder.typicode.com';
+const API_URL = 'http://localhost:3001/api';
 
 // For development/demo purposes, we still keep dummy users
 // In a real application, these would be stored securely on the server
@@ -25,74 +25,19 @@ const AuthService = {
    */
   login: async (username, password) => {
     try {
-      // For demonstration purposes, we'll use JSONPlaceholder users API to simulate authentication
-      // In a real application, you would send the credentials to a real authentication endpoint
-      const response = await axios.get(`${API_URL}/users`);
-      
-      // Normally we would send username and password to the server for validation
-      // Since JSONPlaceholder doesn't have real auth, we'll simulate by finding a user with matching username
-      // In reality, password verification happens on the server side
-      
-      let user = null;
-      
-      // For demo purposes, first look in dummy users
-      user = dummyUsers.find(
-        user => user.username === username && user.password === password
-      );
-      
-      // If not found in dummy users, check API response for matching username (no password check since it's a demo)
-      if (!user && response.data) {
-        const apiUser = response.data.find(u => u.username.toLowerCase() === username.toLowerCase());
-        
-        if (apiUser) {
-          // In a real app, we wouldn't do this check on the client, but for demo purposes...
-          // We're pretending the password is the same as username for API users
-          if (password === username) {
-            user = {
-              id: apiUser.id,
-              username: apiUser.username,
-              displayName: apiUser.name,
-              email: apiUser.email,
-              role: 'user',
-            };
-          }
-        }
-      }
-        
+      const response = await axios.post(`${API_URL}/login`, { username, password });
+      const user = response.data;
+
       if (user) {
-        // Get additional user details (in a real app, this would come from the auth response)
-        // Here we're simulating getting extra user info after authentication
-        try {
-          // For users from the API, get additional data
-          if (!dummyUsers.some(du => du.id === user.id)) {
-            const userDetails = await axios.get(`${API_URL}/users/${user.id}`);
-            if (userDetails.data) {
-              user = {
-                ...user,
-                phone: userDetails.data.phone,
-                website: userDetails.data.website,
-                company: userDetails.data.company?.name
-              };
-            }
-          }
-        } catch (error) {
-          console.warn('Failed to fetch additional user details:', error);
-        }
-          
-        // Store user info in localStorage (in a real app, you might use a JWT token)
         localStorage.setItem('currentUser', JSON.stringify({
           id: user.id,
           username: user.username,
-          displayName: user.displayName || user.name || user.username,
+          displayName: user.username,
           email: user.email,
-          role: user.role,
-          phone: user.phone,
-          website: user.website,
-          company: user.company,
+          role: 'user',
           isAuthenticated: true,
           lastLogin: new Date().toISOString()
         }));
-          
         return true;
       } else {
         return false;
@@ -267,6 +212,29 @@ const AuthService = {
       return currentUser.role === roles;
     } catch (error) {
       return false;
+    }
+  },
+  
+  /**
+   * Sign up a new user
+   * @param {string} username - Desired username
+   * @param {string} email - User's email address
+   * @param {string} password - Desired password
+   * @returns {Promise<Object>} Promise that resolves to signup result
+   */
+  signup: async (username, email, password) => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/users', {
+        username,
+        email,
+        password
+      });
+      return { success: true, user: response.data };
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        return { success: false, error: error.response.data.error };
+      }
+      return { success: false, error: 'An error occurred during signup. Please try again.' };
     }
   }
 };
