@@ -11,6 +11,19 @@ export default function UsageChart({ data }) {
   const formatChartData = (rawData) => {
     if (!rawData) return [];
     
+    // If rawData has daily/monthly properties, extract the appropriate array
+    if (rawData.daily && timeframe === 'daily') {
+      rawData = rawData.daily;
+    } else if (rawData.monthly && timeframe === 'monthly') {
+      rawData = rawData.monthly;
+    }
+    
+    // Handle case where rawData is not an array
+    if (!Array.isArray(rawData)) {
+      console.error('Usage data is not in the expected format:', rawData);
+      return [];
+    }
+    
     return rawData.map(item => {
       // For daily data, format the date nicely
       const displayDate = item.date ? 
@@ -29,10 +42,25 @@ export default function UsageChart({ data }) {
   // Handle timeframe changes and fetch corresponding data
   const handleTimeframeChange = async (newTimeframe) => {
     setTimeframe(newTimeframe);
-    // In a real app, we'd fetch new data here
+    // We'll use the existing data but change which part of it we're using
+    // by updating the timeframe state, which the formatChartData function will use
   };
   
-  const chartData = formatChartData(data);
+  // Process the data safely
+  const safeData = React.useMemo(() => {
+    // Handle missing data
+    if (!data) {
+      console.warn('UsageChart: No data provided');
+      return [];
+    }
+    
+    // Log the data structure to help with debugging
+    console.log('UsageChart received data:', data);
+    
+    return formatChartData(data);
+  }, [data, timeframe]);
+  
+  const chartData = safeData;
   
   // Get chart color based on metric
   const getChartColor = (metric) => {
