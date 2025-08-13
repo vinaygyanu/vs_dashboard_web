@@ -224,14 +224,39 @@ const AuthService = {
    */
   signup: async (username, email, password) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/users', {
+      // Validate required fields
+      if (!username || !email || !password) {
+        return { success: false, error: 'Username, email, and password are all required' };
+      }
+      
+      // Log the request for debugging
+      console.log('Signup request data:', { username, email, password });
+      
+      // Make API call with proper content type header
+      const response = await axios.post(`${API_URL}/users`, {
         username,
         email,
-        password
+        password,
+        status: 'active' // Include status as it's expected by the API
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
+      
+      console.log('Signup success:', response.data);
       return { success: true, user: response.data };
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
+      // Log detailed error information for debugging
+      console.error('Signup error:', error);
+      console.error('Error details:', {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        headers: error.response?.headers
+      });
+      
+      if (error.response?.data?.error) {
         return { success: false, error: error.response.data.error };
       }
       return { success: false, error: 'An error occurred during signup. Please try again.' };

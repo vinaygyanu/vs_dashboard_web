@@ -8,13 +8,6 @@
       "status": "active"
     },
     {
-      "id": 2,
-      "username": "vinay",
-      "email": "vinay@cognizant.com",
-      "password": "vinay123",
-      "status": "active"
-    },
-    {
       "id": 3,
       "username": "user",
       "email": "user@cognizant.com",
@@ -26,6 +19,27 @@
       "username": "vinays",
       "email": "vinays@cognizant.com",
       "password": "vinay123",
+      "status": "active"
+    },
+    {
+      "id": 1755081315596,
+      "username": "testuser",
+      "email": "test@example.com",
+      "password": "testuser123",
+      "status": "active"
+    },
+    {
+      "id": 1755081551075,
+      "username": "vinay12",
+      "email": "vinay8@cognizant.com",
+      "password": "vinay123",
+      "status": "active"
+    },
+    {
+      "id": 1755081594422,
+      "username": "vinay4",
+      "email": "vinay4@cognizant.com",
+      "password": "vinay4123",
       "status": "active"
     }
   ],
@@ -73,6 +87,11 @@
     {
       "username": "user",
       "timestamp": "2025-08-13T10:12:32.173Z",
+      "date": "2025-08-13"
+    },
+    {
+      "username": "vinay12",
+      "timestamp": "2025-08-13T10:39:20.947Z",
       "date": "2025-08-13"
     }
   ],

@@ -166,12 +166,34 @@ const UserList = () => {
   const handleCreate = async (e) => {
     e.preventDefault();
     setAdding(true);
+    
+    // Validate required fields
+    if (!newUser.username || !newUser.email) {
+      setError('Username and email are required');
+      setAdding(false);
+      return;
+    }
+    
     try {
-      await UserService.create(newUser);
+      // Add a default password for the user (username + "123")
+      const userWithPassword = {
+        ...newUser,
+        password: `${newUser.username}123`
+      };
+      console.log('Creating user with data:', userWithPassword);
+      
+      await UserService.create(userWithPassword);
       setNewUser({ username: '', email: '', status: 'active' });
       fetchUsers();
+      setError(null); // Clear any previous errors on success
     } catch (err) {
-      setError('Failed to create user');
+      console.error('Error creating user:', err);
+      if (err.response?.data?.error) {
+        // Use the exact error message from the server
+        setError('Failed to create user: ' + err.response.data.error);
+      } else {
+        setError('Failed to create user: ' + (err.message || 'Unknown error'));
+      }
     } finally {
       setAdding(false);
     }
@@ -204,7 +226,17 @@ const UserList = () => {
   };
 
   if (loading) return <div style={cardStyle}>Loading users...</div>;
-  if (error) return <div style={cardStyle}>{error}</div>;
+  
+  // Show error but don't prevent the component from rendering
+  const errorStyle = {
+    background: 'rgba(254, 226, 226, 0.7)',
+    color: '#b91c1c',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    marginBottom: '20px',
+    fontSize: '0.95rem',
+    border: '1px solid #f87171'
+  };
 
   // Add animated hover effect to buttons
   const animatedButton = (style) => ({

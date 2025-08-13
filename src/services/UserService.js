@@ -12,8 +12,24 @@ const UserService = {
     return res.data;
   },
   create: async (user) => {
-    const res = await axios.post(API_URL, user);
-    return res.data;
+    // Ensure password field exists as the API requires it
+    const userData = {
+      ...user,
+      password: user.password || `${user.username}123` // Set a default password if not provided
+    };
+    console.log('Creating user with data:', userData);
+    try {
+      const res = await axios.post(API_URL, userData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('User creation successful:', res.data);
+      return res.data;
+    } catch (error) {
+      console.error('User creation error:', error.response?.data || error.message);
+      throw error;
+    }
   },
   update: async (id, user) => {
     const res = await axios.put(`${API_URL}/${id}`, user);
